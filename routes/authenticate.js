@@ -13,7 +13,7 @@ router.use( bodyParser.urlencoded( { extended: false } ) );
 
 router.route( '/register' )
   .post( ( req, res ) => {
-    console.log( "REGISTERING NEW USER: " + req.body.email );
+    console.log( req.body + "\nREGISTERING NEW USER: " + req.body.email );
     if ( req.body.email &&
       req.body.username &&
       req.body.phone &&
@@ -23,6 +23,9 @@ router.route( '/register' )
         phone: req.body.phone,
         username: req.body.username,
         password: req.body.password
+      }
+      else {
+        return res.send( 'NOT ALL VALUES.' )
       }
       //use schema.create to insert data into the db
       User.create( userData, function ( err, user ) {
