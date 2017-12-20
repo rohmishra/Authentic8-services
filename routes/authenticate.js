@@ -2,6 +2,7 @@ const express = require( 'express' );
 //const sql = require( 'sql' );
 const bodyParser = require( 'body-parser' );
 const User = require( './../services_model/db_service' );
+const session = require( 'express-session' );
 var MongoStore = require( 'connect-mongo' )( session );
 const router = express.Router();
 
