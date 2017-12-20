@@ -37,7 +37,7 @@ app.use( ( err, req, res, next ) => {
 } );
 
 
-// listen on port 3000
-app.listen( 443, _ => {
-  console.log( 'Express app listening on port 3000' );
+// listen
+app.listen( process.env.PORT, _ => {
+  console.log( 'Setting up add on port ' + process.env.PORT );
 } );
