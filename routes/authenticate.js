@@ -5,7 +5,10 @@ const User = require( './../services_model/db_service' );
 const session = require( 'express-session' );
 var MongoStore = require( 'connect-mongo' )( session );
 const router = express.Router();
-
+ssssssssssssssssssssssssssssssss
+// parse incoming requests
+app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded( { extended: false } ) );
 
 
 router.route( '/register' )

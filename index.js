@@ -10,8 +10,7 @@ const session = require( 'express-session' );
 const app = express()
 dotenv.load();
 //connect to db
-console.log( `USERNAME: ${process.env.testuser} PASWORD:${process.env.testpassword}` + `USING CONNECTION STRING: mongodb://${process.env.testuser}:${process.env.testpassword}@ds161306.mlab.com:61306/heroku_ftdhl2km FOR CONNECTION` );
-mongoose.connect( `mongodb://${process.env.testuser}:${process.env.testpassword}@ds161306.mlab.com:61306/heroku_ftdhl2km` );
+mongoose.connect( ( process.env.MONGODB_URI || `mongodb://${process.env.testuser}:${process.env.testpassword}@ds161306.mlab.com:61306/heroku_ftdhl2km` ) );
 const db = mongoose.connection;
 
 //handle mongo error
