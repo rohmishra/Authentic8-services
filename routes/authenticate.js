@@ -13,14 +13,12 @@ router.route( '/register' )
     if ( req.body.email &&
       req.body.username &&
       req.body.phone &&
-      req.body.password &&
-      req.body.passwordConf ) {
+      req.body.password ) {
       var userData = {
         email: req.body.email,
         phone: req.body.phone,
         username: req.body.username,
-        password: req.body.password,
-        passwordConf: req.body.passwordConf,
+        password: req.body.password
       }
       //use schema.create to insert data into the db
       User.create( userData, function ( err, user ) {
