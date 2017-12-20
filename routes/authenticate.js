@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.route( '/register' )
   .post( ( req, res ) => {
-
+    console.log( "REGISTERING NEW USER: " + req.body.email );
     if ( req.body.email &&
       req.body.username &&
       req.body.phone &&
