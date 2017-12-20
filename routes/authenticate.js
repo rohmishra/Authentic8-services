@@ -1,14 +1,13 @@
 const express = require( 'express' );
 //const sql = require( 'sql' );
-const dotenv = require( 'dotenv' );
-const user = require( './../services/db_service' );
-
+const User = require( './../serices_model/db_service' );
+var MongoStore = require( 'connect-mongo' )( session );
 const router = express.Router();
-//sql.setDialect( 'mysql' )
+
 
 
 router.route( '/register' )
-  .get( ( req, res ) => {
+  .post( ( req, res ) => {
 
     if ( req.body.email &&
       req.body.username &&
@@ -25,7 +24,7 @@ router.route( '/register' )
         if ( err ) {
           return next( err )
         } else {
-          return res.redirect( '/profile' );
+          return res.send( 'done' );
         }
       } );
     }
