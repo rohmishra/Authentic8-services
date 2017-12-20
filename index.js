@@ -22,3 +22,22 @@ db.once( 'open', function () {
 
 
 app.use( '/api', authenticate )
+
+app.use( ( req, res, next ) => {
+  var err = new Error( 'File Not Found' );
+  err.status = 404;
+  next( err );
+} );
+
+// error handler
+// define as the last app.use callback
+app.use( f( err, req, res, next ) => {
+  res.status( err.status || 500 );
+  res.send( err.message );
+} );
+
+
+// listen on port 3000
+app.listen( 3000, _ => {
+  console.log( 'Express app listening on port 3000' );
+} );

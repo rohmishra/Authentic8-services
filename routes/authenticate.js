@@ -30,3 +30,5 @@ router.route( '/register' )
       } );
     }
   } )
+
+module.exports = router;
