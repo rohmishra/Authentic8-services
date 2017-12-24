@@ -25,13 +25,16 @@ router.route( '/register' )
         password: req.body.password
       }
     } else {
-      return res.send( 'NOT ALL VALUES.' );
+      console.log( "UNABLE TO PARSE DATA." )
+      return res.send( 404, 'NOT ALL VALUES.' );
     }
     //use schema.create to insert data into the db
     User.create( userData, function ( err, user ) {
       if ( err ) {
+        console.log( 'error: not registered.' );
         return next( err )
       } else {
+        console.log( 'registered.' );
         return res.send( 'done' );
       }
     } );
