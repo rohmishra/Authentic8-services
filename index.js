@@ -7,6 +7,7 @@ const mongoose = require( 'mongoose' );
 const session = require( 'express-session' );
 
 //** Startup **
+// init express, load env vars.
 const app = express()
 dotenv.load();
 //connect to db
@@ -17,19 +18,24 @@ const db = mongoose.connection;
 db.on( 'error', console.error.bind( console, 'connection error:' ) );
 db.once( 'open', function () {
   // Connected to database.
-  console.log( 'connected' );
+  console.log( 'connected to db.' );
 } );
 
+app.use( session( {
+  secret: 'neverusethisecret',
+  resave: true,
+  saveUninitialized: false
+} ) );
 
 app.use( '/api', authenticate )
 
+// error handler
 app.use( ( req, res, next ) => {
   var err = new Error( 'File Not Found' );
   err.status = 404;
   next( err );
 } );
 
-// error handler
 // define as the last app.use callback
 app.use( ( err, req, res, next ) => {
   res.status( err.status || 500 );
