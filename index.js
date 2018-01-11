@@ -1,6 +1,6 @@
 const express = require( 'express' );
-const twilio = require( 'twilio' );
 const authenticate = require( './routes/authenticate' );
+const AppManager = require( './routes/app_manage' );
 const dotenv = require( 'dotenv' );
 const bodyParser = require( 'body-parser' );
 const mongoose = require( 'mongoose' );
@@ -23,11 +23,12 @@ db.once( 'open', function () {
 
 app.use( session( {
   resave: true,
-  secret: 'neverusethisecret',
+  secret: 'neverusethisecretagain',
   saveUninitialized: true
 } ) );
 
-app.use( '/api', authenticate )
+app.use( '/service', authenticate )
+app.use( '/api', AppManager )
 
 // error handler
 app.use( ( req, res, next ) => {

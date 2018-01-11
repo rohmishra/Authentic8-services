@@ -6,3 +6,4 @@
 //}
 
 //module.exports = PasswordManager
+module.exports = null;
