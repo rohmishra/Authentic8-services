@@ -55,10 +55,11 @@ router.route( '/register' )
   } );
 
 // Used by Authentic8 client to request SMS.
-router.route( '/get_sms' )
+router.route( '/sms' )
   .post( ( req, res ) => {
     // Get phone Number
     let number = req.body.phone_number;
+    console.log( "Phone number is " + number );
     // Check db if phone number is alread registered. if yes -> respond fail "Already registered."
     // Check last SMS time. if time<5m -> fail "Too many request."
     // create OTP.
@@ -74,7 +75,8 @@ router.route( '/get_sms' )
       .then( message => console.log( message.sid ) );
     // Send SUCCESS or FAIL to client with message..
     res.send( 200, 'Done.' );
-  } )
+  } );
+
 // used by Authentic8 client to create new session.
 router.route( '/login' )
   .post( ( req, res ) => {
