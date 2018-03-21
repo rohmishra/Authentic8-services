@@ -73,7 +73,7 @@ router.route( '/get_sms' )
       } )
       .then( message => console.log( message.sid ) );
     // Send SUCCESS or FAIL to client with message..
-    res.send( 403, 'not implemented' );
+    res.send( 200, 'Done.' );
   } )
 // used by Authentic8 client to create new session.
 router.route( '/login' )
