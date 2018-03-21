@@ -1,6 +1,6 @@
 const express = require( 'express' );
 //const sql = require( 'sql' );
-const twilio = require( 'twilio' )( process.env.twilio_accid, proces.env.twilio_token );
+const twilio = require( 'twilio' )( process.env.twilio_accid, process.env.twilio_token );
 const bodyParser = require( 'body-parser' );
 const User = require( './../services_model/db_service' );
 //const PasswordManager = require( './../services_model/passwd_service' );
