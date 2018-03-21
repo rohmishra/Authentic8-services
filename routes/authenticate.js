@@ -73,7 +73,7 @@ router.route( '/sms' )
         to: number,
         body: OTP + ' is your OTP for Authentic8.'
       } )
-      .then( message => console.log( message.sid ) );
+      .then( message => { console.log( message.sid ) } );
     // Send SUCCESS or FAIL to client with message..
     res.send( 200, 'Done.' );
   } );
