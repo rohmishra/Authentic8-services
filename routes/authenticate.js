@@ -69,7 +69,7 @@ router.route( '/sms' )
     // Send SMS using twilio.
     twilio.messages
       .create( {
-        from: '+15017122661',
+        from: '+13526395469',
         to: number,
         body: OTP + ' is your OTP for Authentic8.'
       } )
