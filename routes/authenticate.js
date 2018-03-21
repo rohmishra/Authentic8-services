@@ -1,6 +1,6 @@
 const express = require( 'express' );
 //const sql = require( 'sql' );
-const twilio = require( 'twilio' );
+const twilio = require( 'twilio' )( process.env.twilio_accid, proces.env.twilio_token );
 const bodyParser = require( 'body-parser' );
 const User = require( './../services_model/db_service' );
 //const PasswordManager = require( './../services_model/passwd_service' );
@@ -58,11 +58,20 @@ router.route( '/register' )
 router.route( '/get_sms' )
   .post( ( req, res ) => {
     // Get phone Number
+    let number = req.body.phone_number;
     // Check db if phone number is alread registered. if yes -> respond fail "Already registered."
     // Check last SMS time. if time<5m -> fail "Too many request."
     // create OTP.
+    let OTP = Math.floor( 100000 + Math.random() * 900000 );
     // Save to db with phone number.
     // Send SMS using twilio.
+    twilio.messages
+      .create( {
+        to: number,
+        from: '+15017122661',
+        body: OTP + ' is your OTP for Authentic8.',
+      } )
+      .then( message => console.log( message.sid ) );
     // Send SUCCESS or FAIL to client with message..
     res.send( 403, 'not implemented' );
   } )

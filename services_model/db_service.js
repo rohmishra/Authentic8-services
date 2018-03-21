@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema( {
 // TODO: Enable hashing before next test.
 // UserSchema.pre( 'save', ( next ) => {
 //   let user = this;
-//   console.log( user.password );
+//   // console.log( user.password );
 //   if ( user.password ) {
 //     bcrypt.hash( user.password, 10, ( err, hash ) => {
 //       if ( err ) {
