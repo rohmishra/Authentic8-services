@@ -61,7 +61,7 @@ router.route( '/sms' )
     // Get phone Number
     let clientOTP = req.body.OTP || null;
     let number = req.body.phone_number || '919819072227';
-    console.log( "Phone number is " + number + " type: " + TypeOf( number ) );
+    console.log( "Phone number is " + number + " type: " + typeof ( number ) );
     // Check db if phone number is alread registered. if yes -> respond fail "Already registered."
     // Check last SMS time. if time<5m -> fail "Too many request."
 
