@@ -66,7 +66,7 @@ router.route( '/sms' )
     // Check db if phone number is alread registered. if yes -> respond fail "Already registered."
     // Check last SMS time. if time<5m -> fail "Too many request."
 
-    if ( !clientOTP && number ) {
+    if ( !clientOTP && number != null ) {
       // create OTP.
       let OTP = Math.floor( 100000 + Math.random() * 900000 );
       // Save to db with phone number.
