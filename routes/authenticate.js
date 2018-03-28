@@ -37,7 +37,8 @@ router.route( '/register' )
       console.log( "All data available. created userData" );
     } else {
       console.log( "UNABLE TO PARSE DATA." )
-      return res.send( 404, 'NOT ALL VALUES.' );
+      return res..status( 501 )
+        .send( 'NOT ALL VALUES.' );
     }
     //use schema.create to insert data into the db
     if ( !userData ) {
@@ -60,12 +61,12 @@ router.route( '/sms' )
   .post( ( req, res ) => {
     // Get phone Number
     let clientOTP = req.body.OTP || null;
-    let number = req.body.phone_number || '919819072227';
+    let number = req.body.phone_number || null;
     console.log( "Phone number is " + number + " type: " + typeof ( number ) );
     // Check db if phone number is alread registered. if yes -> respond fail "Already registered."
     // Check last SMS time. if time<5m -> fail "Too many request."
 
-    if ( !clientOTP ) {
+    if ( !clientOTP && number ) {
       // create OTP.
       let OTP = Math.floor( 100000 + Math.random() * 900000 );
       // Save to db with phone number.
@@ -76,7 +77,7 @@ router.route( '/sms' )
           to: number,
           body: OTP + ' is your OTP for Authentic8.'
         } )
-        .then( message => { console.log( message.sid ) } )
+        .then( message => { console.log( message.sid ); } )
         .err;
       // Send SUCCESS or FAIL to client with message..
       res.send( 200, 'Done.' );
