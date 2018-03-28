@@ -37,7 +37,7 @@ router.route( '/register' )
       console.log( "All data available. created userData" );
     } else {
       console.log( "UNABLE TO PARSE DATA." )
-      return res..status( 501 )
+      return res.status( 501 )
         .send( 'NOT ALL VALUES.' );
     }
     //use schema.create to insert data into the db
