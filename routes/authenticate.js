@@ -59,23 +59,28 @@ router.route( '/register' )
 router.route( '/sms' )
   .post( ( req, res ) => {
     // Get phone Number
+    let clientOTP = req.body.OTP || null;
     let number = req.body.phone_number || '919819072227';
-    console.log( "Phone number is " + number + " type: " + typeOf( number ) );
+    console.log( "Phone number is " + number + " type: " + TypeOf( number ) );
     // Check db if phone number is alread registered. if yes -> respond fail "Already registered."
     // Check last SMS time. if time<5m -> fail "Too many request."
-    // create OTP.
-    let OTP = Math.floor( 100000 + Math.random() * 900000 );
-    // Save to db with phone number.
-    // Send SMS using twilio.
-    twilio.messages
-      .create( {
-        from: '+13526395469',
-        to: number,
-        body: OTP + ' is your OTP for Authentic8.'
-      } )
-      .then( message => { console.log( message.sid ) } );
-    // Send SUCCESS or FAIL to client with message..
-    res.send( 200, 'Done.' );
+
+    if ( clientOTP ) {
+      // create OTP.
+      let OTP = Math.floor( 100000 + Math.random() * 900000 );
+      // Save to db with phone number.
+      // Send SMS using twilio.
+      twilio.messages
+        .create( {
+          from: '+13526395469',
+          to: number,
+          body: OTP + ' is your OTP for Authentic8.'
+        } )
+        .send()
+        .then( message => { console.log( message.sid ) } );
+      // Send SUCCESS or FAIL to client with message..
+      res.send( 200, 'Done.' );
+    }
   } );
 
 // used by Authentic8 client to create new session.
