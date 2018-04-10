@@ -46,6 +46,7 @@ router.route( '/register' )
     }
     User.create( userData, function ( err, user ) {
       if ( err ) {
+
         // TODO: Send back error messages. {username/email exists}
         console.log( 'error: not registered.' );
         return next( err )
@@ -77,10 +78,13 @@ router.route( '/sms' )
           to: number,
           body: OTP + ' is your OTP for Authentic8.'
         } )
-        .then( message => { console.log( message.sid ); } )
+        .then( message => {
+          console.log( message.sid );
+          res.semd( 'done' );
+        } )
         .err;
       // Send SUCCESS or FAIL to client with message..
-      res.send( 200, 'Done.' );
+      res.send( 200, 'Done with errors.' );
     } else {
       res.send( 200, 'Not implemented' );
     }
