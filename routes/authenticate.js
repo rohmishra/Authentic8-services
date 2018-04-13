@@ -3,7 +3,7 @@ const express = require( 'express' );
 const twilioService = require( 'twilio' );
 const twilio = new twilioService( process.env.twilio_accid, process.env.twilio_token );
 const bodyParser = require( 'body-parser' );
-const User = require( './../services_model/db_service' );
+const { User, sms } = require( './../services_model/db_service' );
 //const PasswordManager = require( './../services_model/passwd_service' );
 const session = require( 'express-session' );
 var MongoStore = require( 'connect-mongo' )( session );
@@ -47,7 +47,7 @@ router.route( '/register' )
     User.create( userData, function ( err, user ) {
       if ( err ) {
 
-        // TODO: Send back error messages. {username/email exists}
+        consoe.log( `user:` + user );
         console.log( 'error: not registered.' );
         return next( err )
       } else {
@@ -63,14 +63,32 @@ router.route( '/sms' )
     // Get phone Number
     let clientOTP = req.body.OTP || null;
     let number = req.body.phone_number || null;
-    console.log( "Phone number is " + number + " type: " + typeof ( number ) );
-    // Check db if phone number is alread registered. if yes -> respond fail "Already registered."
-    // Check last SMS time. if time<5m -> fail "Too many request."
 
+    console.log( "Phone number is " + number );
+
+    // Check db if phone number is alread registered. if yes -> respond fail "Already registered."
+    // if ( db.collection( 'otp_pool' )
+    //   .find( { phone } ) ) {
+    //
+    // }
+
+    // Check last SMS time. if time<5m -> fail "Too many request."
+    // create OTP.
+    let OTP = Math.floor( 100000 + Math.random() * 900000 );
+
+    //If no OTP sent.
     if ( !clientOTP && number != null ) {
-      // create OTP.
-      let OTP = Math.floor( 100000 + Math.random() * 900000 );
       // Save to db with phone number.
+      smsRequest = {
+        phone: phone,
+        otp: OTP,
+        timestamp: Date.now()
+      }
+      sms.create( smsRequest, _ => {
+        console.log( 'UNABLE TO ADD TO DB.' );
+        return next( err )
+      } )
+
       // Send SMS using twilio.
       twilio.messages
         .create( {
@@ -82,11 +100,18 @@ router.route( '/sms' )
           console.log( message.sid );
           res.semd( 'done' );
         } )
-        .err;
+        .catch( e => {
+          res.send( 501, 'SMS SEND FAILED' );
+        } );
       // Send SUCCESS or FAIL to client with message..
-      res.send( 200, 'Done with errors.' );
+      res.send( 200, 'Done' );
     } else {
       res.send( 200, 'Not implemented' );
+      //retrieve from DB.
+
+      //Check if same.
+
+      // send sessionID
     }
   } );
 

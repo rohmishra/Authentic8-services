@@ -1,5 +1,22 @@
 const mongoose = require( 'mongoose' );
 const bcrypt = require( 'bcrypt' );
+
+var smsVerificationSchema = mongoose.Schema( {
+  phone: {
+    type: String,
+    get: v => {
+      if ( v.length < 11 ) {
+        defaultprefix = "+91";
+        var num = "";
+        num.concat( defaultprefix, v );
+        v = num;
+      }
+    }
+  },
+  otp: Number,
+  timestamp: date
+} );
+
 const UserSchema = new mongoose.Schema( {
   email: {
     type: String,
@@ -64,4 +81,5 @@ UserSchema.statics.authenticate = ( email, password, callback ) => {
 }
 
 const User = mongoose.model( 'User', UserSchema );
-module.exports = User;
+const smsCode = mongoose.model( 'smsCode', msVerificationSchema );
+module.exports = { User, smsCode };
