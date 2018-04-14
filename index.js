@@ -32,7 +32,7 @@ app.use( '/api', AppManager )
 
 // error handler
 app.use( ( req, res, next ) => {
-  var err = new Error( 'File Not Found' );
+  var err = new Error( 'service Not Found ' + req.body );
   err.status = 404;
   next( err );
 } );

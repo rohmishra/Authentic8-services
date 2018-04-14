@@ -14,7 +14,7 @@ var smsVerificationSchema = mongoose.Schema( {
     }
   },
   otp: Number,
-  timestamp: date
+  timestamp: Date
 } );
 
 const UserSchema = new mongoose.Schema( {
