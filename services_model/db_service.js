@@ -81,5 +81,5 @@ UserSchema.statics.authenticate = ( email, password, callback ) => {
 }
 
 const User = mongoose.model( 'User', UserSchema );
-const smsCode = mongoose.model( 'smsCode', msVerificationSchema );
+const smsCode = mongoose.model( 'smsCode', smsVerificationSchema );
 module.exports = { User, smsCode };
