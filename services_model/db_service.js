@@ -11,6 +11,7 @@ var smsVerificationSchema = mongoose.Schema( {
         num.concat( defaultprefix, v );
         v = num;
       }
+      console.log( v );
     }
   },
   otp: Number,
