@@ -101,6 +101,7 @@ router.route( '/sms' )
           res.semd( 'done' );
         } )
         .catch( e => {
+          console.log( "error sending SMS. Error: " + e );
           res.send( 501, 'SMS SEND FAILED' );
         } );
       // Send SUCCESS or FAIL to client with message..
