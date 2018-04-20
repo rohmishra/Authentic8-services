@@ -1,7 +1,7 @@
 const mongoose = require( 'mongoose' );
 const bcrypt = require( 'bcrypt' );
 
-var smsVerificationSchema = mongoose.Schema( {
+var smsVerificationSchema = new mongoose.Schema( {
   phone: {
     type: String,
     get: v => {
@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema( {
     trim: true
   },
   phone: {
-    type: Number,
+    type: String,
     unique: false,
     required: true
   },
@@ -75,7 +75,7 @@ UserSchema.statics.authenticate = ( email, password, callback ) => {
           // TODO: create a sessionID and attach to user.
           return callback( null, user );
         } else {
-          return callback();
+          return callback( null );
         }
       } )
     } );
