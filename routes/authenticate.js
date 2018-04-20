@@ -98,7 +98,7 @@ router.route( '/sms' )
         } )
         .then( message => {
           console.log( message.sid );
-          res.semd( 'done' );
+          res.send( 'done' );
         } )
         .catch( e => {
           console.log( "error sending SMS. Error: " + e );
