@@ -30,7 +30,7 @@ app.use( session( {
 app.use( '/service', authenticate )
 app.use( '/api', AppManager )
 
-// error handler
+// error handler for resove issue
 app.use( ( req, res, next ) => {
   var err = new Error( 'service Not Found ' + req.body );
   err.status = 404;
