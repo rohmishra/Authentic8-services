@@ -80,7 +80,7 @@ router.route( '/sms' )
     if ( !clientOTP && number != null ) {
       // Save to db with phone number.
       smsRequest = {
-        phone: phone,
+        phone: number,
         otp: OTP,
         timestamp: Date.now()
       }
