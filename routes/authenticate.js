@@ -3,7 +3,7 @@ const express = require( 'express' );
 const twilioService = require( 'twilio' );
 const twilio = new twilioService( process.env.twilio_accid, process.env.twilio_token );
 const bodyParser = require( 'body-parser' );
-const { User, sms } = require( './../services_model/db_service' );
+const User, sms = require( './../services_model/db_service' );
 //const PasswordManager = require( './../services_model/passwd_service' );
 const session = require( 'express-session' );
 var MongoStore = require( 'connect-mongo' )( session );
@@ -69,7 +69,7 @@ router.route( '/sms' )
     // Check db if phone number is alread registered. if yes -> respond fail "Already registered."
     // if ( db.collection( 'otp_pool' )
     //   .find( { phone } ) ) {
-    //
+    //smsVerificationSchema changes
     // }
 
     // Check last SMS time. if time<5m -> fail "Too many request."
