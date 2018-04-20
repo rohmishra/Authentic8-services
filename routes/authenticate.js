@@ -84,9 +84,12 @@ router.route( '/sms' )
         otp: OTP,
         timestamp: Date.now()
       }
-      sms.create( smsRequest, e => {
-        console.log( 'UNABLE TO ADD TO DB.' + e );
-
+      sms.create( smsRequest, ( err, sms ) => {
+        if ( err ) {
+          console.log( 'UNABLE TO ADD TO DB.' + e );
+        } else {
+          console.log( sms );
+        }
       } )
 
       // Send SMS using twilio.
