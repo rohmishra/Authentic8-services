@@ -130,7 +130,6 @@ router.route( '/login' )
       User.authenticate( req.body.email, req.body.password, ( err, user ) => {
         if ( !user || err ) {
           res.status( 401 );
-          return next( err );
         } else {
           // TODO: Use actual session ID instead of UID.
           req.session.sessionID = user._id;
