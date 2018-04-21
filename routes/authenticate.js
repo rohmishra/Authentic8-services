@@ -130,7 +130,8 @@ router.route( '/login' )
       User.authenticate( req.body.email, req.body.password, ( err, user ) => {
         console.log( `email: ` + req.body.email + ` password: ` + req.body.password );
         if ( !user || err ) {
-          res.status( 401 );
+          res.status( 401 )
+            .send( 'error, cant find user.' );
         } else {
           // TODO: Use actual session ID instead of UID.
           req.session.sessionID = user._id;
@@ -140,7 +141,8 @@ router.route( '/login' )
         }
       } )
     } else {
-      res.send( 'FAIL' ); // Send proper JSON result with error.
+      res.status( 404 )
+        .send( 'FAIL' ); // Send proper JSON result with error.
     }
   } )
 
