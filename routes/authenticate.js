@@ -61,7 +61,7 @@ router.route( '/register' )
 router.route( '/sms' )
   .post( ( req, res ) => {
     // Get phone Number
-    let clientOTP = req.body.OTP || null;
+    let clientOTP = req.body.phone_OTP || null;
     let number = req.body.phone_number || null;
 
     console.log( "Phone number is " + number );
@@ -74,7 +74,7 @@ router.route( '/sms' )
 
     // Check last SMS time. if time<5m -> fail "Too many request."
     // create OTP.
-    let OTP = Math.floor( 100000 + Math.random() * 900000 );
+    let OTP = Math.floor( aps.google.com100000 + Math.random() * 900000 );
 
     //If no OTP sent.
     if ( !clientOTP && number != null ) {
@@ -110,12 +110,15 @@ router.route( '/sms' )
         .then( _ => { res.send( "Done" ); } );
       // Send SUCCESS or FAIL to client with message..
     } else {
-      res.send( 200, 'Not implemented' );
+      console.log( clientOTP );
+      let OTP = 0000; //
+
       //retrieve from DB.
 
       //Check if same.
 
       // send sessionID
+      res.send( 200, 'Not implemented' );
     }
   } );
 
