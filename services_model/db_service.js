@@ -47,20 +47,20 @@ const UserSchema = new mongoose.Schema( {
 // Password hash
 // Disabled for now.
 // TODO: Enable hashing before next test.
-UserSchema.pre( 'save', ( next ) => {
-  let user = this;
-  // console.log( user.password );
-  if ( user.password ) {
-    bcrypt.hash( user.password, 10, ( err, hash ) => {
-      if ( err ) {
-        return next( err );
-      } else {
-        user.password = hash;
-        next();
-      }
-    } )
-  }
-} );
+// UserSchema.pre( 'save', ( next ) => {
+//   let user = this;
+//   console.log( user.password );
+//   if ( user.password ) {
+//     bcrypt.hash( user.password, 10, ( err, hash ) => {
+//       if ( err ) {
+//         return next( err );
+//       } else {
+//         user.password = hash;
+//         next();
+//       }
+//     } )
+//   }
+// } );
 
 UserSchema.statics.authenticate = ( email, password, callback ) => {
   User.findOne( { email: email } )
@@ -77,7 +77,7 @@ UserSchema.statics.authenticate = ( email, password, callback ) => {
           // TODO: create a sessionID and attach to user.
           return callback( null, user );
         } else {
-          return callback( null );
+          return callback( null, `pasword mismatch.` );
         }
       } )
     } );

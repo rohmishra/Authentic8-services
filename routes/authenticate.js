@@ -130,9 +130,16 @@ router.route( '/login' )
     if ( req.body.email && req.body.password ) {
       User.authenticate( req.body.email, req.body.password, ( err, user ) => {
         console.log( `email: ` + req.body.email + ` password: ` + req.body.password );
-        if ( !user || err ) {
+        if ( err ) {
+          res.status( 404 )
+            .send( 'error somewhere.' );
+        }
+        if ( !user ) {
           res.status( 401 )
             .send( 'error, cant find user.' );
+        } else if ( user == `pasword mismatch.` ) {
+          res.status( 407 )
+            .send( 'pasword mismatch.' );
         } else {
           // TODO: Use actual session ID instead of UID.
           req.session.sessionID = user._id;
