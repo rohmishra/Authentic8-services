@@ -74,10 +74,10 @@ router.route( '/sms' )
 
     // Check last SMS time. if time<5m -> fail "Too many request."
     // create OTP.
-    let OTP = Math.floor( aps.google.com100000 + Math.random() * 900000 );
 
     //If no OTP sent.
     if ( !clientOTP && number != null ) {
+      let OTP = Math.floor( 100000 + Math.random() * 900000 );
       // Save to db with phone number.
       smsRequest = {
         phone: number,
