@@ -128,6 +128,7 @@ router.route( '/login' )
     // TODO: Add SMS Two-step.
     if ( req.body.email && req.body.password ) {
       User.authenticate( req.body.email, req.body.password, ( err, user ) => {
+        console.log( `email: ` + req.body.email + ` password: ` + req.body.password );
         if ( !user || err ) {
           res.status( 401 );
         } else {
