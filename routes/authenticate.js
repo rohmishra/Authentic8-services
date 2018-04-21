@@ -134,6 +134,8 @@ router.route( '/login' )
         } else {
           // TODO: Use actual session ID instead of UID.
           req.session.sessionID = user._id;
+          res.status( 200 )
+            .send( `done. Accepted.` );
           // send token to client.
         }
       } )
