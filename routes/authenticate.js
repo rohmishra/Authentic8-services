@@ -47,7 +47,7 @@ router.route( '/register' )
     User.create( userData, function ( err, user ) {
       if ( err ) {
 
-        consoe.log( `user:` + user );
+        console.log( `user:` + user );
         console.log( 'error: not registered.' );
         return next( err )
       } else {
