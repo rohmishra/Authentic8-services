@@ -49,7 +49,8 @@ router.route( '/register' )
 
         console.log( `user:` + user );
         console.log( 'error: not registered.' );
-        return next( err )
+        res.status( 409 )
+          .send( `error. not registered.` )
       } else {
         console.log( 'registered.' );
         res.send( 'done' );
