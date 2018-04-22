@@ -156,6 +156,7 @@ router.route( '/login' )
             .send( 'pasword mismatch.' );
         } else {
           // TODO: Use actual session ID instead of UID.
+          console.log( user );
           req.session.sessionID = user._id;
           res.status( 200 )
             .send( `done. Accepted.` );

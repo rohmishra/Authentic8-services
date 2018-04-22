@@ -1,3 +1,9 @@
+/**
+ *** Copyright 2017, Rohan Mishra
+ *** Free to use for all purposes with or without credits.
+ **/
+
+
 const mongoose = require( 'mongoose' );
 const bcrypt = require( 'bcrypt' );
 
@@ -13,7 +19,7 @@ var smsVerificationSchema = new mongoose.Schema( {
         num.concat( defaultprefix, v );
         v = num;
       }
-      console.log( v );
+      console.log( "DB Model: using phone number: " + v );
     }
   },
   otp: Number,
@@ -47,20 +53,30 @@ const UserSchema = new mongoose.Schema( {
 // Password hash
 // Disabled for now.
 // TODO: Enable hashing before next test.
-// UserSchema.pre( 'save', ( next ) => {
-//   let user = this;
-//   console.log( user.password );
-//   if ( user.password ) {
-//     bcrypt.hash( user.password, 10, ( err, hash ) => {
-//       if ( err ) {
-//         return next( err );
-//       } else {
-//         user.password = hash;
-//         next();
-//       }
-//     } )
-//   }
-// } );
+UserSchema.pre( 'save', ( next ) => {
+  console.log( "DB Model: pre: bcrypt hashing password...." );
+  let user = this;
+  console.log( user.password );
+  if ( user.password ) {
+    bcrypt.hash( user.password, 10, ( err, hash ) => {
+      if ( err ) {
+        return next( err = new Error( "hash fail." ) );
+      } else {
+        user.password = hash;
+        next();
+      }
+    } )
+  }
+  console.log( "DB Model: pre: bcrypt salt done!" );
+} );
+
+UserSchema.post( 'save', function ( error, doc, next ) {
+  if ( error.name === 'MongoError' && error.code === 11000 ) {
+    next( new Error( 'There was a duplicate key error. User Possibly already registered.' ) );
+  } else {
+    next( error );
+  }
+} );
 
 UserSchema.statics.authenticate = ( email, password, callback ) => {
   User.findOne( { email: email } )
