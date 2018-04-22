@@ -152,20 +152,26 @@ router.route( '/login' )
           res.status( 401 )
             .send( 'error, cant find user.' );
         } else if ( user == `pasword mismatch.` ) {
-          res.status( 407 )
+          res.status( 401 )
             .send( 'pasword mismatch.' );
         } else {
           // TODO: Use actual session ID instead of UID.
           console.log( user );
           req.session.sessionID = user._id;
           res.status( 200 )
-            .send( `done. Accepted.` );
+            .json( { message: `done. Accepted.`, key: user._id } );
           // send token to client.
         }
       } )
     } else {
-      res.status( 404 )
-        .send( 'FAIL' ); // Send proper JSON result with error.
+      res.status( 406 )
+        .json( {
+          message: "error. username or password missing",
+          sentData: {
+            username: req.body.email || `missing`,
+            password: req.body.password || `missing`
+          }
+        } ); // Send proper JSON result with error.
     }
   } )
 
