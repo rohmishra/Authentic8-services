@@ -112,7 +112,7 @@ router.route( '/sms' )
       // Send SUCCESS or FAIL to client with message..
     } else {
       console.log( clientOTP );
-      sms.findOne( { phone: number, OTP: clientOTP }, '*' )
+      sms.findOne( { phone: number, otp: clientOTP }, 'phone otp timestamp' )
         .exec( ( err, code ) => {
           if ( err ) {
             res.status( 501 )
