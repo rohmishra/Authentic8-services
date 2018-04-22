@@ -159,7 +159,14 @@ router.route( '/login' )
           console.log( user );
           req.session.sessionID = user._id;
           res.status( 200 )
-            .json( { message: `done. Accepted.`, key: user._id } );
+            .json( {
+              message: `done. Accepted.`,
+              essential: {
+                key: user._id,
+                username: user.username,
+                data: null
+              }
+            } );
           // send token to client.
         }
       } )
