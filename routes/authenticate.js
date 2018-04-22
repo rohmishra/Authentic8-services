@@ -118,6 +118,7 @@ router.route( '/sms' )
             res.status( 501 )
               .json( { "message": "Error occured" } );
           } else {
+            console.log( code );
             if ( !code ) {
               res.status( 401 )
                 .json( { "message": "Not found" } )
