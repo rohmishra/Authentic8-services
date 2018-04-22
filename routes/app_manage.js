@@ -42,11 +42,15 @@ router.route( '/get_code' )
 router.route( '/get_info' )
   .post( ( req, res ) => {
     // Get user session
+    let user = req.body.user_key;
     // Get Token.
+    let token = req.body.app_id;
     // Validate
-    // Send application info and reqd permission list.
+    // + connect to db and validate
+    // Send application info and read permission list.
     res.status( 200 )
       .json( {
+        application_id: token, //app_id,
         application_name: `dummy name`,
         application_developer: `Dummy Inc.`,
         permission: [ `permission.user.name`, `permission.user.dob`, `permission.user.storage` ]
