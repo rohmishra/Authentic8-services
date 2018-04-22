@@ -53,24 +53,24 @@ const UserSchema = new mongoose.Schema( {
 // Password hash
 // Disabled for now.
 // TODO: Enable hashing before next test.
-// UserSchema.pre( 'save', ( next ) => {
-//   console.log( "DB Model: pre: bcrypt hashing password...." );
-//   let user = this;
-//   console.log( `using password: ` + user.password + `document: ` + user );
-//   if ( user.password ) {
-//     bcrypt.hash( user.password, 10, ( err, hash ) => {
-//       if ( err ) {
-//         return next( err = new Error( "hash fail." ) );
-//         console.log( `unable to hash password.` );
-//       } else {
-//         user.password = hash;
-//         console.log( `hash complete.` );
-//         next();
-//       }
-//     } )
-//   }
-//   console.log( "DB Model: pre: bcrypt hash & salt done!" );
-// } );
+UserSchema.pre( 'save', function ( next ) {
+  console.log( "DB Model: pre: bcrypt hashing password...." );
+  let user = this;
+  console.log( `using password: ` + user.password + `document: ` + user );
+  if ( user.password ) {
+    bcrypt.hash( user.password, 10, ( err, hash ) => {
+      if ( err ) {
+        return next( err = new Error( "hash fail." ) );
+        console.log( `unable to hash password.` );
+      } else {
+        user.password = hash;
+        console.log( `hash complete.` );
+        next();
+      }
+    } )
+  }
+  console.log( "DB Model: pre: bcrypt hash & salt done!" );
+} );
 
 UserSchema.post( 'save', function ( error, doc, next ) {
   if ( error.name === 'MongoError' && error.code === 11000 ) {
