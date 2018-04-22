@@ -56,18 +56,20 @@ const UserSchema = new mongoose.Schema( {
 UserSchema.pre( 'save', ( next ) => {
   console.log( "DB Model: pre: bcrypt hashing password...." );
   let user = this;
-  console.log( user.password );
+  console.log( `using password: ` + user.password + `document: ` + user );
   if ( user.password ) {
     bcrypt.hash( user.password, 10, ( err, hash ) => {
       if ( err ) {
         return next( err = new Error( "hash fail." ) );
+        console.log( `unable to hash password.` );
       } else {
         user.password = hash;
+        console.log( `hash complete.` );
         next();
       }
     } )
   }
-  console.log( "DB Model: pre: bcrypt salt done!" );
+  console.log( "DB Model: pre: bcrypt hash & salt done!" );
 } );
 
 UserSchema.post( 'save', function ( error, doc, next ) {
@@ -75,6 +77,9 @@ UserSchema.post( 'save', function ( error, doc, next ) {
     next( new Error( 'There was a duplicate key error. User Possibly already registered.' ) );
   } else {
     next( error );
+  }
+  if ( !error ) {
+    console.log( `DB Model: post: No error.` );
   }
 } );
 
