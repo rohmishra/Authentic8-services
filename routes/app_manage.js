@@ -45,7 +45,12 @@ router.route( '/get_info' )
     // Get Token.
     // Validate
     // Send application info and reqd permission list.
-    res.send( 403, "Not implemented." );
+    res.status( 200 )
+      .json( {
+        application_name: `dummy name`,
+        application_developer: `Dummy Inc.`,
+        permission: [ `permission.user.name`, `permission.user.dob`, `permission.user.storage` ]
+      } );
   } );
 
 // Used by App to request user data

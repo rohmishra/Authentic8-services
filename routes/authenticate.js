@@ -185,6 +185,9 @@ router.route( '/login' )
 // Used by authentic8 app to destroy a session.
 router.route( '/logout' )
   .post( ( req, res ) => {
+    let key = req.body.key;
+    let username = req.body.username;
+    console.log( `key is: ` + key + ` and username is: ` + username );
     // Validate user session and destroy it.
     res.send( 401, 'Not implemented' );
   } )
