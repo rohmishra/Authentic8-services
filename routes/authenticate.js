@@ -112,6 +112,24 @@ router.route( '/sms' )
       // Send SUCCESS or FAIL to client with message..
     } else {
       console.log( clientOTP );
+      sms.findOne( { phone: number } )
+        .exec( ( err, code ) => {
+          if ( err ) {
+            res.status( 501 )
+              .json( { "message": "Error occured" } );
+          } else {
+            if ( !code ) {
+              res.status( 401 )
+                .json( { "message": "Not found" } )
+            } else {
+              if ( code.OTP == clientOTP ) {
+                res.send( 200, 'SUCCESS' );
+              } else {
+                res.send( 201, 'FAIL' );
+              }
+            }
+          }
+        } )
       let OTP = 0000; //
 
       //retrieve from DB.
@@ -119,7 +137,6 @@ router.route( '/sms' )
       //Check if same.
 
       // send sessionID
-      res.send( 200, 'Not implemented' );
     }
   } );
 
