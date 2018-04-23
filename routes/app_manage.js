@@ -8,6 +8,10 @@ const session = require( 'express-session' );
 var MongoStore = require( 'connect-mongo' )( session );
 const router = express.Router();
 
+// parse incoming requests
+router.use( bodyParser.json() );
+router.use( bodyParser.urlencoded( { extended: false } ) );
+
 // Used by Authentic8 client to control app access
 // requires: user session, app token, alow/deny response
 router.route( '/init' )
