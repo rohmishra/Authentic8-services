@@ -41,7 +41,7 @@ router.route( '/get_code' )
 // Used by authentic8 app to get app info.
 router.route( '/get_info' )
   .post( ( req, res ) => {
-    console.log( req.body );
+    console.log( "BODY: " + req.body );
 
     // Get user session
     let user = req.body.user_key;
