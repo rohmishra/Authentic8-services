@@ -144,11 +144,10 @@ router.route( '/login' )
     if ( req.body.email && req.body.password ) {
       User.authenticate( req.body.email, req.body.password, ( err, user ) => {
         console.log( `email: ` + req.body.email + ` password: ` + req.body.password );
-        if ( err ) {
+        if ( err && !user ) {
           res.status( 404 )
             .send( 'error somewhere.' );
-        }
-        if ( !user ) {
+        } else if ( !user ) {
           res.status( 401 )
             .send( 'error, cant find user.' );
         } else if ( user == `pasword mismatch.` ) {
